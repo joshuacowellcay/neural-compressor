@@ -105,10 +105,10 @@ the heavy half because it carries the PyTorch checkpoint.
 ```bash
 cd neural-compressor
 git remote -v             # confirm no remote yet
-gh repo create joshuacowell/neural-compressor --public --source=. --remote=origin --push
+gh repo create joshuacowellcay/neural-compressor --public --source=. --remote=origin --push
 # or the manual equivalent:
-# gh repo create joshuacowell/neural-compressor --public
-# git remote add origin git@github.com:joshuacowell/neural-compressor.git
+# gh repo create joshuacowellcay/neural-compressor --public
+# git remote add origin git@github.com:joshuacowellcay/neural-compressor.git
 # git push -u origin main
 ```
 

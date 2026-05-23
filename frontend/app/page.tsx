@@ -137,7 +137,7 @@ export default function HomePage() {
 
       <footer className="mt-10 border-t border-slate-200 pt-4 text-center text-xs text-slate-400 dark:border-slate-800">
         Built with PyTorch, FastAPI, and Next.js. Source on{' '}
-        <a className="underline" href="https://github.com/joshuacowell/neural-compressor">
+        <a className="underline" href="https://github.com/joshuacowellcay/neural-compressor">
           GitHub
         </a>
         .

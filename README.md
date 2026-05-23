@@ -1,6 +1,6 @@
 # Neural Compressor
 
-[![CI](https://github.com/joshuacowell/neural-compressor/actions/workflows/ci.yml/badge.svg)](https://github.com/joshuacowell/neural-compressor/actions/workflows/ci.yml)
+[![CI](https://github.com/joshuacowellcay/neural-compressor/actions/workflows/ci.yml/badge.svg)](https://github.com/joshuacowellcay/neural-compressor/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org)
 
@@ -90,7 +90,7 @@ on every push.
 
 ```bash
 # 1. Clone and enter
-git clone https://github.com/joshuacowell/neural-compressor.git
+git clone https://github.com/joshuacowellcay/neural-compressor.git
 cd neural-compressor
 
 # 2. Python deps (3.10 or newer)
