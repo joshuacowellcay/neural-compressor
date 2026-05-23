@@ -69,19 +69,6 @@ next.
    byte-for-byte (the decoder reconstructs each byte before predicting the next), so the
    probabilities match too.
 
-## Recording the demo GIF
-
-1. Start the backend: `python scripts/serve.py`.
-2. Start the frontend in another shell: `cd frontend && npm run dev`.
-3. Pick a screen recorder (macOS: `Cmd+Shift+5` then "Record Selected Portion";
-   on Linux, `peek` or `byzanz-record` work).
-4. Record the page at `http://localhost:3000`, choose the bundled sample, wait for
-   the per-byte heatmap to render, and stop the recording when it does.
-5. Convert to a roughly 1200x800 GIF (`ffmpeg -i in.mov -vf "fps=8,scale=1200:-1:flags=lanczos"
-   assets/demo.gif`) and commit it. The README already references that path.
-
-A static screenshot in the same folder is also fine if a GIF is too heavy.
-
 ## Deployment
 
 The split is intentional: the frontend is static and trivial to host; the backend is

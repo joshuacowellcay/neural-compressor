@@ -11,13 +11,14 @@ model in lockstep to reconstruct the original bytes exactly.
 
 ## Demo
 
-![Neural Compressor demo](assets/demo.gif)
+![Neural Compressor web demo: 484-byte sample compressed to 142 bytes at 2.347 bits/byte, 54.8% smaller than gzip, with the per-byte surprise heatmap](assets/demo.png)
 
-> The animated demo above is a placeholder; record a screen capture of `npm run dev`
-> compressing a file and replace `assets/demo.gif` to ship a real one. Recording recipe
-> is in [HANDOFF.md](HANDOFF.md#recording-the-demo-gif).
+Drop a short passage into the web app and you get the head-to-head comparison
+against gzip, bzip2, and xz, the per-byte "surprise" heatmap (each cell is one byte,
+darker = more bits to predict), and the model metadata sidebar. The screenshot
+above is a 484-byte sample from the bundled corpus.
 
-![Compression efficiency on held-out text](assets/benchmark_bpb.png)
+To run it locally see [Setup](#setup-under-five-minutes-from-a-fresh-clone) below.
 
 ## Headline results
 
@@ -31,6 +32,8 @@ training). Numbers regenerate from a real run of `python scripts/benchmark.py`; 
 | gzip -9             | 3.459         | 7,084            | reference               |
 | bzip2 -9            | 3.085         | 6,317            | 35% smaller             |
 | xz -9               | 3.363         | 6,888            | 41% smaller             |
+
+![Compression efficiency on held-out text](assets/benchmark_bpb.png)
 
 The neural compressor wins on size and loses on speed: a single forward pass of the small
 Transformer runs per byte, so compressing 16 KiB takes roughly twelve seconds against gzip's
@@ -144,7 +147,7 @@ neural-compressor/
   scripts/             train, compress, decompress, benchmark, serve
   tests/               pytest suite (coder, model, pipeline, backend, benchmark)
   .github/workflows/   CI (lint + tests + frontend build)
-  assets/              demo gif placeholder, benchmark figures
+  assets/              demo screenshot, benchmark figures
 ```
 
 ## Known limitations and what I would build next
