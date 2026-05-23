@@ -1,0 +1,38 @@
+# Optional one-command demo. The canonical path (per the README) is local Python venv
+# plus npm run dev; Docker is provided for convenience and for reproducible deploys.
+#
+# Usage:
+#   docker compose up --build
+#   open http://localhost:3000
+#
+# The backend image bundles the trained model checkpoint so the first request does not
+# need to download anything. Cold start is dominated by the PyTorch import (~3s).
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    environment:
+      NCOMP_BACKEND_HOST: 0.0.0.0
+      NCOMP_BACKEND_PORT: "8000"
+      NCOMP_MAX_UPLOAD_BYTES: "4096"
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys;urllib.request.urlopen('http://localhost:8000/api/health').read()"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/frontend.Dockerfile
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
