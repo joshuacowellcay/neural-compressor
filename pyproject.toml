@@ -1,0 +1,92 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ncomp"
+version = "0.1.0"
+description = "Neural Compressor: a lossless data compressor built from a small neural network and an integer-arithmetic entropy coder."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [{ name = "Joshua Cowell" }]
+keywords = ["compression", "neural-network", "arithmetic-coding", "entropy-coding"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Archiving :: Compression",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch>=2.5,<3",
+    "numpy>=1.26,<2",
+    "fastapi>=0.115,<1",
+    "uvicorn[standard]>=0.32,<1",
+    "pydantic>=2.10,<3",
+    "python-multipart>=0.0.19",
+    "matplotlib>=3.10,<4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3,<9",
+    "pytest-cov>=6,<7",
+    "ruff>=0.8,<1",
+    "black>=24.10,<25",
+    "httpx>=0.28,<1",
+]
+
+[project.scripts]
+ncomp-train = "ncomp.cli:train_cli"
+ncomp-compress = "ncomp.cli:compress_cli"
+ncomp-decompress = "ncomp.cli:decompress_cli"
+ncomp-benchmark = "ncomp.cli:benchmark_cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ncomp = ["py.typed"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q --strict-markers"
+testpaths = ["tests"]
+pythonpath = ["src"]
+filterwarnings = [
+    "ignore::DeprecationWarning:torch.*",
+    "ignore::UserWarning:torch.*",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests", "scripts", "backend"]
+extend-exclude = ["frontend", ".venv", "models", "corpus"]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "UP", # pyupgrade
+    "C4", # flake8-comprehensions
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+    "B008",  # do not perform function calls in argument defaults (FastAPI uses this)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+extend-exclude = "/(\\.venv|frontend|models|corpus)/"
